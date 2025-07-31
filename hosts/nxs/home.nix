@@ -16,6 +16,7 @@
     flameshot
     xclip
     psmisc
+    sl
     dmenu
     picom
     telegram-desktop
