@@ -1,25 +1,21 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# config
 REPO_ROOT="$(dirname "$(realpath "$0")")"
 HOSTS_DIR="$REPO_ROOT/hosts"
-EDITOR="${EDITOR:-vim}"
+EDITOR="vim"
 NIXOS_REBUILD_CMD="sudo nixos-rebuild switch --flake"
 
-# colors for fzf prompt
 FZF_DEFAULT_OPTS="
   --height=40%
   --border
   --color=prompt:#61afef,pointer:#98c379,marker:#e5c07b,header:#c678dd
 "
 
-# get hosts list
 get_hosts() {
   find "$HOSTS_DIR" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;
 }
 
-# select host (auto if one, else fzf)
 choose_host() {
   local hosts=($(get_hosts))
   if (( ${#hosts[@]} == 0 )); then
@@ -32,33 +28,58 @@ choose_host() {
   fi
 }
 
-# select file under a host
 choose_file() {
   local host="$1"
   find "$HOSTS_DIR/$host" -type f | fzf --prompt="select file to edit > " $FZF_DEFAULT_OPTS || exit 1
 }
 
-# commit changes with tags
+format_with_nixpkgs_fmt() {
+  local file="$1"
+  if command -v nixpkgs-fmt &>/dev/null; then
+    nixpkgs-fmt "$file" || echo "warning: nixpkgs-fmt failed on $file" >&2
+  else
+    echo "warning: nixpkgs-fmt not found, skipping formatting" >&2
+  fi
+}
+
 commit_changes() {
   local msg="$1"
   git add "$HOSTS_DIR"
   if ! git diff --cached --quiet; then
+    echo -e "\e[1;33m▶ staged changes diff:\e[0m"
+    git --no-pager diff --color=always --cached | less -R
+    echo -e "\n\e[1;36m⏳ committing changes...\e[0m"
+    if [[ "$msg" == "edit "* ]]; then
+      msg+=" @$(date '+%Y-%m-%d %H:%M:%S')"
+    fi
     git commit -m "$msg"
+    echo -e "\e[1;32m✔ commit done\e[0m"
   else
-    echo "no changes to commit"
+    echo -e "\e[1;31m⚠ no changes to commit\e[0m"
   fi
 }
 
-# show git diff for hosts dir
-show_diff() {
-  git --no-pager diff "$HOSTS_DIR" || true
+prompt_confirm() {
+  while true; do
+    read -rp $'\e[1;34mProceed with nixos-rebuild? [y/N]: \e[0m' yn
+    case $yn in
+      [Yy]*) return 0 ;;
+      [Nn]*|"" ) return 1 ;;
+      *) echo "please answer y or n." ;;
+    esac
+  done
 }
 
-# rebuild nixos config with selected host
 switch_config() {
   local host="$1"
-  echo -e "\e[1;34mswitching to host config: $host\e[0m"
-  $NIXOS_REBUILD_CMD "$REPO_ROOT#$host"
+  echo -e "\e[1;35mSwitching to host config: $host\e[0m"
+  if prompt_confirm; then
+    echo -e "\e[1;33mRunning nixos-rebuild...\e[0m"
+    $NIXOS_REBUILD_CMD "$REPO_ROOT#$host"
+    echo -e "\e[1;32mNixos-rebuild completed!\e[0m"
+  else
+    echo -e "\e[1;31mNixos-rebuild skipped\e[0m"
+  fi
 }
 
 usage() {
@@ -86,13 +107,13 @@ main() {
   host=$(choose_host)
   file=$(choose_file "$host")
 
+  format_with_nixpkgs_fmt "$file"
   $EDITOR "$file"
 
   default_msg="edit $(basename "$file")"
   [[ -z "$commit_msg" ]] && commit_msg="$default_msg"
 
   commit_changes "$commit_msg"
-  show_diff
   switch_config "$host"
 }
 
