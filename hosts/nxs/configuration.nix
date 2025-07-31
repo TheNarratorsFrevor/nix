@@ -76,11 +76,11 @@
     };
 
     displayManager.lightdm = {
-	enable = true;
-	    autoLogin.enable = true;
-    autoLogin.user = "narrator";
- };
-windowManager.i3.enable = true;
+      enable = true;
+      autoLogin.enable = true;
+      autoLogin.user = "narrator";
+    };
+    windowManager.i3.enable = true;
 
   };
 
@@ -130,36 +130,36 @@ windowManager.i3.enable = true;
     i3-gaps
   ];
   fonts.packages = with pkgs; [
-  nerd-fonts.fira-code
-  nerd-fonts.droid-sans-mono
-nerd-fonts.symbols-only
-];
-services.logind = {
-  lidSwitch = "suspend";
-  lidSwitchDocked = "ignore";
-  lidSwitchExternalPower = "lock";
-  extraConfig = ''
-    HandlePowerKey=suspend
-    HandleSuspendKey=hibernate
-  '';
-};
+    nerd-fonts.fira-code
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.symbols-only
+  ];
+  services.logind = {
+    lidSwitch = "suspend";
+    lidSwitchDocked = "ignore";
+    lidSwitchExternalPower = "lock";
+    extraConfig = ''
+      HandlePowerKey=suspend
+      HandleSuspendKey=hibernate
+    '';
+  };
 
-# firewall bc duh
-networking.firewall.enable = true;
+  # firewall bc duh
+  networking.firewall.enable = true;
 
-# time sync
-services.timesyncd.enable = true;
+  # time sync
+  services.timesyncd.enable = true;
 
 
-# bluetooth
-hardware.bluetooth.enable = true;
-services.blueman.enable = true;
+  # bluetooth
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
-# enable printing
-services.printing.enable = true;
+  # enable printing
+  services.printing.enable = true;
 
-# enable openssh for remote access
-services.openssh.enable = true;
+  # enable openssh for remote access
+  services.openssh.enable = true;
 
   system.stateVersion = "25.05"; # Did you read the comment?
 
