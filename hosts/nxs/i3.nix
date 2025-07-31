@@ -154,7 +154,46 @@
           childBorder = "#bf616a";
         };
       };
+      programs.i3blocks = {
+        enable = true;
+        bars = {
+          default = {
+            position = "top";
+            statusCommand = "${pkgs.i3blocks}/bin/i3blocks -c ${pkgs.writeText "i3blocks.conf" ''
+          [time]
+          command=${formatScript "date +'%a%d %b %H:%M'"}
+          interval=60
 
-    };
-  };
-}
+          [cpu]
+          command=${formatScript "awk -v RS= '{usage=($13+$14)*100/($2+$4+$5); printf \"cpu %.0f%%\", usage}' /proc/stat"}
+          interval=2
+
+          [mem]
+          command=${formatScript "free -m | awk '/Mem:/ {printf \"ram %d/%dMB\", \$3, \$2}'"}
+          interval=5
+
+          [disk]
+          command=${formatScript "df -h / | awk '/\\// {printf \"disk %s/%s\", \$3, \$2}'"}
+          interval=60
+
+          [net]
+          command=${formatScript "ip r | grep default | awk '{print $3}' | xargs -I{} ping -c 1 {} | awk -F'=' '/time=/{print \"net \" \$NF}'"}
+          interval=10
+
+          [pkg]
+          command=${formatScript "${pkgs.nix}/bin/nix-store --gc --print-dead | wc -l | awk '{print \"gc \" \$1}'"}
+          interval=600
+
+          [temp]
+          command=${formatScript "sensors | grep -Po 'Package id 0: +\\+\\K[0-9.]+' | awk '{print \"temp \"$1\"°C\"}'"}
+          interval=10
+
+          [uptime]
+          command=${formatScript "uptime -p | sed 's/up //' | awk '{print \"up \"$0}'"}
+          interval=60
+        ''}";
+		};
+
+          };
+        };
+      }

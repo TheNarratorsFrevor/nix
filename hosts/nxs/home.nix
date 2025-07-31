@@ -10,7 +10,7 @@
   programs.home-manager.enable = true;
   home.packages = with pkgs; [
     git
-	sl
+    sl
     firefox
     neovim
     btop
