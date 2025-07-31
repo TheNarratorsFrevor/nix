@@ -10,9 +10,10 @@
   programs.home-manager.enable = true;
   home.packages = with pkgs; [
     git
+
     firefox
     neovim
-    btop
+
     flameshot
     xclip
     psmisc
