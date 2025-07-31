@@ -13,7 +13,7 @@
 
     firefox
     neovim
-
+    btop
     flameshot
     xclip
     psmisc
