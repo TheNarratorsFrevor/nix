@@ -154,6 +154,7 @@
           childBorder = "#bf616a";
         };
       };
+	      status_command = "i3blocks";
     };
 
   };
