@@ -123,6 +123,7 @@ windowManager.i3.enable = true;
     os-prober
     fish
     htop
+    fzf
     curl
     git
     lightdm
