@@ -3,6 +3,7 @@
 {
   imports = [
     ./i3.nix
+    ./i3blocks.nix
   ];
   home.username = "narrator";
   home.homeDirectory = "/home/narrator";
@@ -13,6 +14,13 @@
     sl
     firefox
     neovim
+    i3blocks
+    iproute2
+    gawk
+    inetutils
+    gnugrep
+    wireplumber
+    lm_sensors
     btop
     flameshot
     xclip
