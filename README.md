@@ -1,0 +1,2 @@
+# nix
+main nixos dotfiles
