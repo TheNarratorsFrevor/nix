@@ -25,7 +25,7 @@
       keybindings = {
         "Mod1+Return" = "exec alacritty";
         "Mod1+q" = "kill";
-        "Mod1+p" = "exec feh --bg-fill -r -z ~/wallpapers/winrip";
+        "Mod1+p" = "exec feh --bg-fill -r -z ~/Pictures/winrip";
         "Mod1+d" = "exec rofi -show drun";
 
         # Volume control
@@ -118,10 +118,10 @@
 
       startup = [
         { command = "xmodmap ~/.Xmodmap"; always = true; }
-	{ command = "xinput --set-prop '$(xinput list --name-only | grep -i touchpad)' 'libinput Natural Scrolling Enabled' 1"; always = true; }
+        { command = "xinput --set-prop '$(xinput list --name-only | grep -i touchpad)' 'libinput Natural Scrolling Enabled' 1"; always = true; }
 
         { command = "setxkbmap -option grp:alt_caps_toggle -layout us,ir"; }
-        { command = "feh --bg-fill -r -z ~/Pictures/Wallpapers/pixelcity.jpg"; always = true; }
+        { command = "feh --bg-fill -r -z ~/Pictures/Wallpapers/wall.png"; always = true; }
         { command = "xss-lock --transfer-sleep-lock -- i3lock --nofork"; }
       ];
       colors = {
