@@ -16,7 +16,6 @@
     flameshot
     xclip
     psmisc
-    sl
     dmenu
     picom
     telegram-desktop
@@ -29,7 +28,7 @@
     zoxide
     fortune
     nixpkgs-fmt
-	rofi
+    rofi
 
 
   ];
