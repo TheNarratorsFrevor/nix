@@ -23,6 +23,15 @@
   swapDevices = [
     { device = "/dev/nvme0n1p8"; }
   ];
+system.autoUpgrade = {
+  enable = true;
+  flake = inputs.self.outPath;
+  flags = [
+    "-L" # print build logs
+  ];
+  dates = "01:00";
+  randomizedDelaySec = "45min";
+};
 
   # Use the systemd-boot EFI boot loader.
   #boot.loader.systemd-boot.enable = true;
