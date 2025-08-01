@@ -17,12 +17,12 @@
           interval = 15;
         };
         vol = {
-  label = "VOL";
-  command = ''
-    ${pkgs.pipewire}/bin/wpctl get-volume @DEFAULT_SINK@ | grep -o '[0-9]\+%' | head -n1
-  '';
-  interval = 5;
-};
+          label = "VOL";
+          command = ''
+            ${pkgs.pipewire}/bin/wpctl get-volume @DEFAULT_SINK@ | grep -o '[0-9]\+%' | head -n1
+          '';
+          interval = 5;
+        };
 
         ram = {
           label = "RAM ";
@@ -56,7 +56,7 @@
         };
         gen = {
           label = "GEN ";
-          command = "nixos-rebuild list-generations | grep -oE '[0-9]+' | head -n1`";
+          command = "nixos-rebuild list-generations | grep -oE '[0-9]+' | head -n1";
           interval = 900;
         };
         fail = {
