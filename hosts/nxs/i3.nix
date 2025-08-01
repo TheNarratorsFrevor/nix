@@ -29,10 +29,10 @@
         "Mod1+d" = "exec rofi -show drun";
 
         # Volume control
-	"XF86AudioRaiseVolume" = "exec --no-startup-id wpctl set-volume @DEFAULT_SINK@ 0.1+";
-	"XF86AudioLowerVolume" = "exec --no-startup-id wpctl set-volume @DEFAULT_SINK@ 0.1-";
-	"XF86AudioMute" = "exec --no-startup-id wpctl set-mute @DEFAULT_SINK@ toggle";
-	"XF86AudioMicMute" = "exec --no-startup-id wpctl set-mute @DEFAULT_SOURCE@ toggle";
+        "XF86AudioRaiseVolume" = "exec --no-startup-id wpctl set-volume @DEFAULT_SINK@ 0.1+";
+        "XF86AudioLowerVolume" = "exec --no-startup-id wpctl set-volume @DEFAULT_SINK@ 0.1-";
+        "XF86AudioMute" = "exec --no-startup-id wpctl set-mute @DEFAULT_SINK@ toggle";
+        "XF86AudioMicMute" = "exec --no-startup-id wpctl set-mute @DEFAULT_SOURCE@ toggle";
 
 
         # Focus
@@ -117,7 +117,7 @@
         };
       };
       bars = [
-      { statusCommand = "i3blocks -c ~/.config/i3blocks/default"; }
+        { statusCommand = "i3blocks -c ~/.config/i3blocks/default"; }
       ];
 
       startup = [

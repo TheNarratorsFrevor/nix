@@ -56,7 +56,7 @@
         };
         gen = {
           label = "GEN ";
-          command = "ls /nix/var/nix/profiles/system-*-link | wc -l";
+          command = "nixos-rebuild list-generations | grep -oE '[0-9]+' | head -n1`";
           interval = 900;
         };
         fail = {
