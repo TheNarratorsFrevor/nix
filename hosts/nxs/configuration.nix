@@ -11,7 +11,6 @@
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   fileSystems."/home" = {
     device = "/dev/nvme0n1p7";
     fsType = "ext4";
@@ -24,6 +23,7 @@
   swapDevices = [
     { device = "/dev/nvme0n1p8"; }
   ];
+
   # Use the systemd-boot EFI boot loader.
   #boot.loader.systemd-boot.enable = true;
   #boot.loader.efi.canTouchEfiVariables = true;
@@ -94,7 +94,9 @@
   # Enable sound.
   # services.pulseaudio.enable = true;
   # OR
+  security.rtkit.enable = true;
   services.pipewire = {
+    alsa.enable = true;
     enable = true;
     pulse.enable = true;
   };
@@ -128,6 +130,7 @@
     git
     lightdm
     i3-gaps
+    blueman
   ];
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code

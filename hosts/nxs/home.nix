@@ -10,11 +10,13 @@
   home.stateVersion = "25.05";
   programs.home-manager.enable = true;
   home.packages = with pkgs; [
+    pavucontrol
     git
     sl
     firefox
     neovim
     i3blocks
+	strawberry
     iproute2
     gawk
     inetutils
@@ -38,7 +40,7 @@
     fortune
     nixpkgs-fmt
     rofi
-
+    pipewire
 
   ];
 
