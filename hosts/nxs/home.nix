@@ -9,6 +9,17 @@
   home.homeDirectory = "/home/narrator";
   home.stateVersion = "25.05";
   programs.home-manager.enable = true;
+services.picom = {
+  enable = true;
+  settings = {
+    vsync = true;
+    backend = "glx";
+    glx-no-stencil = true;
+    glx-copy-from-front = false;
+    use-damage = false;
+  };
+};
+
   home.packages = with pkgs; [
     pavucontrol
     git
@@ -16,7 +27,7 @@
     firefox
     neovim
     i3blocks
-	strawberry
+    strawberry
     iproute2
     gawk
     inetutils
