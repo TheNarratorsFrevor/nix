@@ -23,7 +23,7 @@
   swapDevices = [
     { device = "/dev/nvme0n1p8"; }
   ];
-
+nixpkgs.config.allowUnfree = true;
   # Use the systemd-boot EFI boot loader.
   #boot.loader.systemd-boot.enable = true;
   #boot.loader.efi.canTouchEfiVariables = true;
@@ -81,6 +81,7 @@
       autoLogin.user = "narrator";
     };
     windowManager.i3.enable = true;
+    windowManager.awesome.enable = true;
 
   };
 
@@ -122,6 +123,7 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    xorg.xinit
     os-prober
     fish
     htop
@@ -130,6 +132,7 @@
     git
     lightdm
     i3-gaps
+    awesome
     blueman
   ];
   fonts.packages = with pkgs; [
@@ -149,6 +152,7 @@
 
   # firewall bc duh
   networking.firewall.enable = true;
+  documentation.man.generateCaches = false;
 
   # time sync
   services.timesyncd.enable = true;

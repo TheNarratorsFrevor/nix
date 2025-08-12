@@ -21,6 +21,14 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.narrator = import ./hosts/nxs/home.nix;
+system.autoUpgrade = {
+          enable = true;
+          flake = self.outPath;  # <<< here use self.outPath directly, NOT inputs.self
+          flags = [ "-L" ];
+          dates = "02:00";
+          randomizedDelaySec = "45min";
+	  operation = "switch";
+        };
         }
       ];
     };
